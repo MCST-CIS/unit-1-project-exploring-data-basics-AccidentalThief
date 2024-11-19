@@ -11,6 +11,7 @@ class PhysicsObject {
     c = rgb;
   }
   
+  //calculate next position based on current velocity and acceleration
   void updatePosition(float dt) {
     PVector displacement = new PVector(currentPosition.x - oldPosition.x, currentPosition.y - oldPosition.y);
     oldPosition = currentPosition;
@@ -20,6 +21,7 @@ class PhysicsObject {
     circle(currentPosition.x, currentPosition.y, diameter);
   }
   
+  //add acceration
   void accelerate(PVector a) {
     acceleration.x += a.x;
     acceleration.y += a.y;
@@ -40,6 +42,7 @@ class PhysicsObject {
 class World {
   float time = 0;
   int subSteps = 8;
+  //list of all the objects in world
   ArrayList<PhysicsObject> objects = new ArrayList<PhysicsObject>();
   PVector gravity = new PVector(0, 1000);
   
@@ -53,6 +56,7 @@ class World {
       updatePositions(dt/subSteps);
     }
     */
+    //apply all changes that will happen between frames
     time += 1.0/60.0;
     applyGravity();
     applyContraints();
@@ -75,6 +79,8 @@ class World {
       i.accelerate(gravity);
     }
   }
+  
+  //tbh I don't really want to explain all the math in comments, but it's pretty light
   
   void applyContraints() {
     PVector position = new PVector(500, 500);
